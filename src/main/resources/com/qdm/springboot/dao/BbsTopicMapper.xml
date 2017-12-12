@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qdm.springboot.dao.BbsTopicDao">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.qdm.springboot.entity.BbsTopic">
+        <result column="topic_id" property="topicId"/>
+        <result column="topic" property="topic"/>
+        <result column="user_id" property="userId"/>
+        <result column="is_show" property="isShow"/>
+        <result column="order_num" property="orderNum"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `topic_id`,
+        `topic`,
+        `user_id`,
+        `is_show`,
+        `order_num`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="topic.topicId">
+        INSERT INTO bbs_topic (
+            `topic_id`,
+            `topic`,
+            `user_id`,
+            `is_show`,
+            `order_num`,
+            `create_time`
+        ) VALUES (
+            #{topic.topicId},
+            #{topic.topic},
+            #{topic.userId},
+            #{topic.isShow},
+            #{topic.orderNum},
+            #{topic.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="topic.topicId">
+        INSERT INTO bbs_topic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="topic.topicId!=null"> `topic_id`,</if>
+            <if test="topic.topic!=null"> `topic`,</if>
+            <if test="topic.userId!=null"> `user_id`,</if>
+            <if test="topic.isShow!=null"> `is_show`,</if>
+            <if test="topic.orderNum!=null"> `order_num`,</if>
+            <if test="topic.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="topic.topicId!=null">#{topic.topicId},</if>
+            <if test="topic.topic!=null">#{topic.topic},</if>
+            <if test="topic.userId!=null">#{topic.userId},</if>
+            <if test="topic.isShow!=null">#{topic.isShow},</if>
+            <if test="topic.orderNum!=null">#{topic.orderNum},</if>
+            <if test="topic.createTime!=null">#{topic.createTime},</if>
+        </trim>
+    </insert>
+
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE bbs_topic
+        <set>
+            <if test="topic.topicId != null"> `topic_id` = #{topic.topicId}, </if>
+            <if test="topic.topic != null"> `topic` = #{topic.topic}, </if>
+            <if test="topic.userId != null"> `user_id` = #{topic.userId}, </if>
+            <if test="topic.isShow != null"> `is_show` = #{topic.isShow}, </if>
+            <if test="topic.orderNum != null"> `order_num` = #{topic.orderNum}, </if>
+            <if test="topic.createTime != null"> `create_time` = #{topic.createTime} </if>
+        </set>
+        WHERE topic_id = #{topic.topicId}
+    </update>
+
+    <!--获取主题-->
+    <select id="getBbsTopicById" parameterType="java.lang.Integer" resultMap="AllColumnMap">
+      SELECT
+        <include refid="all_column" />
+      FROM bbs_topic WHERE topic_id=#{topicId}
+    </select>
+
+    <!--删除主题-->
+    <delete id="deleteBbsTopicById" parameterType="java.lang.Integer">
+        DELETE FROM bbs_topic WHERE topic_id=#{topicId}
+    </delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
