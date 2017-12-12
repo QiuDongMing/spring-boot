@@ -52,7 +52,9 @@ public class BbsController {
         return ResultBodyUtils.success();
     }
 
+    public void test() {
 
+    }
 
 
 }
