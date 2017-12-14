@@ -1,6 +1,8 @@
 package com.qdm.springboot.controller;
 
 import com.qdm.springboot.entity.BbsTopic;
+import com.qdm.springboot.group.AddGroup;
+import com.qdm.springboot.group.UpdateGroup;
 import com.qdm.springboot.result.GlobalErrorInfoEnum;
 import com.qdm.springboot.result.GlobalErrorInfoException;
 import com.qdm.springboot.result.ResultBody;
@@ -9,7 +11,12 @@ import com.qdm.springboot.service.BbsTopicService;
 import com.qdm.springboot.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResultUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author QiuDongMing 2017年12月02日 18:12
@@ -37,24 +44,21 @@ public class BbsController {
     }
 
     @PutMapping("/api/topic/")
-    public ResultBody update(@RequestBody BbsTopic bbsTopic) throws Exception {
+    public ResultBody update(@Valid @RequestBody BbsTopic bbsTopic) throws Exception {
         bbsTopicService.updateTopic(bbsTopic);
         return ResultBodyUtils.success();
     }
 
 
     @PostMapping("/api/topic/")
-    public ResultBody add(@RequestBody BbsTopic bbsTopic) throws Exception {
-        if(bbsTopic == null) {
-            throw new GlobalErrorInfoException(GlobalErrorInfoEnum.PARAMS_NO_COMPLETE);
+    public ResultBody add(@Validated({AddGroup.class}) @RequestBody BbsTopic bbsTopic, BindingResult bindingResult) throws Exception {
+        if(bindingResult.hasErrors()) {
+            return ResultBodyUtils.error(bindingResult.getFieldError().getCode(), bindingResult.getFieldError().getDefaultMessage());
         }
         bbsTopicService.addTopic(bbsTopic);
         return ResultBodyUtils.success();
     }
 
-    public void test() {
-
-    }
 
 
 }

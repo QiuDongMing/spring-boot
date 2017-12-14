@@ -25,5 +25,30 @@ public class ResultBodyUtils {
         return resultBody;
     }
 
+    /**
+     * 返回失败
+     * @param msg 失败信息
+     * @return
+     */
+    public static ResultBody error(String msg) {
+        ResultBody resultBody = new ResultBody("1",msg);
+        return resultBody;
+    }
+
+    /**
+     * 返回失败
+     * @param msg 失败信息
+     * @return
+     */
+    public static ResultBody error(String code, String msg) {
+        return new ResultBody(code,msg);
+    }
+
+
+
+
+
+
+
 
 }

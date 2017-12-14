@@ -1,5 +1,10 @@
 package com.qdm.springboot.entity;
 
+import com.qdm.springboot.group.AddGroup;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -10,6 +15,7 @@ public class BbsTopic {
 
     private Integer topicId;
 
+    @NotBlank(message = "主题内容不能为空", groups = {AddGroup.class})
     private String topic;
 
     private Integer userId;
